@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bang.mall.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.bang.mall.domain.Goods" >
+    <id column="goodsID" property="goodsid" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_total" property="goodsTotal" jdbcType="INTEGER" />
+    <result column="goods_detals" property="goodsDetals" jdbcType="VARCHAR" />
+    <result column="goods_sell" property="goodsSell" jdbcType="INTEGER" />
+    <result column="create" property="create" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsID, goods_name, goods_total, goods_detals, goods_sell, create
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods
+    where goodsID = #{goodsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_goods
+    where goodsID = #{goodsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bang.mall.domain.Goods" >
+    insert into tb_goods (goodsID, goods_name, goods_total, 
+      goods_detals, goods_sell, create
+      )
+    values (#{goodsid,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsTotal,jdbcType=INTEGER}, 
+      #{goodsDetals,jdbcType=VARCHAR}, #{goodsSell,jdbcType=INTEGER}, #{create,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bang.mall.domain.Goods" >
+    insert into tb_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsID,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsTotal != null" >
+        goods_total,
+      </if>
+      <if test="goodsDetals != null" >
+        goods_detals,
+      </if>
+      <if test="goodsSell != null" >
+        goods_sell,
+      </if>
+      <if test="create != null" >
+        create,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotal != null" >
+        #{goodsTotal,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDetals != null" >
+        #{goodsDetals,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSell != null" >
+        #{goodsSell,jdbcType=INTEGER},
+      </if>
+      <if test="create != null" >
+        #{create,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bang.mall.domain.Goods" >
+    update tb_goods
+    <set >
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotal != null" >
+        goods_total = #{goodsTotal,jdbcType=INTEGER},
+      </if>
+      <if test="goodsDetals != null" >
+        goods_detals = #{goodsDetals,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSell != null" >
+        goods_sell = #{goodsSell,jdbcType=INTEGER},
+      </if>
+      <if test="create != null" >
+        create = #{create,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goodsID = #{goodsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bang.mall.domain.Goods" >
+    update tb_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_total = #{goodsTotal,jdbcType=INTEGER},
+      goods_detals = #{goodsDetals,jdbcType=VARCHAR},
+      goods_sell = #{goodsSell,jdbcType=INTEGER},
+      create = #{create,jdbcType=TIMESTAMP}
+    where goodsID = #{goodsid,jdbcType=INTEGER}
+  </update>
+</mapper>
