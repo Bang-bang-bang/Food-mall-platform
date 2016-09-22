@@ -21,7 +21,7 @@ public class MallTest {
 	@Test
 	public void MyTest() {
 		System.out.println(8888);
-		ac = new ClassPathXmlApplicationContext(new String[] { "spring.xml" });
+		ac = new ClassPathXmlApplicationContext(new String[] { "spring.xml","spring-mybatis.xml" });
 		System.out.println("gg");
 		userServiceI = (UserServiceI) ac.getBean("userBean");
 		System.out.println(userServiceI.getUser(0));
