@@ -7,10 +7,10 @@
     <result column="goods_total" property="goodsTotal" jdbcType="INTEGER" />
     <result column="goods_detals" property="goodsDetals" jdbcType="VARCHAR" />
     <result column="goods_sell" property="goodsSell" jdbcType="INTEGER" />
-    <result column="create" property="create" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    goodsID, goods_name, goods_total, goods_detals, goods_sell, create
+    goodsID, goods_name, goods_total, goods_detals, goods_sell, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +24,10 @@
   </delete>
   <insert id="insert" parameterType="com.bang.mall.domain.Goods" >
     insert into tb_goods (goodsID, goods_name, goods_total, 
-      goods_detals, goods_sell, create
+      goods_detals, goods_sell, create_time
       )
     values (#{goodsid,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsTotal,jdbcType=INTEGER}, 
-      #{goodsDetals,jdbcType=VARCHAR}, #{goodsSell,jdbcType=INTEGER}, #{create,jdbcType=TIMESTAMP}
+      #{goodsDetals,jdbcType=VARCHAR}, #{goodsSell,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bang.mall.domain.Goods" >
@@ -48,8 +48,8 @@
       <if test="goodsSell != null" >
         goods_sell,
       </if>
-      <if test="create != null" >
-        create,
+      <if test="createTime != null" >
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -68,8 +68,8 @@
       <if test="goodsSell != null" >
         #{goodsSell,jdbcType=INTEGER},
       </if>
-      <if test="create != null" >
-        #{create,jdbcType=TIMESTAMP},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -88,8 +88,8 @@
       <if test="goodsSell != null" >
         goods_sell = #{goodsSell,jdbcType=INTEGER},
       </if>
-      <if test="create != null" >
-        create = #{create,jdbcType=TIMESTAMP},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where goodsID = #{goodsid,jdbcType=INTEGER}
@@ -100,7 +100,7 @@
       goods_total = #{goodsTotal,jdbcType=INTEGER},
       goods_detals = #{goodsDetals,jdbcType=VARCHAR},
       goods_sell = #{goodsSell,jdbcType=INTEGER},
-      create = #{create,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where goodsID = #{goodsid,jdbcType=INTEGER}
   </update>
 </mapper>

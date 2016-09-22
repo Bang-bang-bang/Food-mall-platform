@@ -13,7 +13,7 @@ public class ReceiveMsg {
 
     private String phone;
 
-    private Date create;
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -55,11 +55,11 @@ public class ReceiveMsg {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public Date getCreate() {
-        return create;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

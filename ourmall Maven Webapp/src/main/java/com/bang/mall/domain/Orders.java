@@ -3,7 +3,7 @@ package com.bang.mall.domain;
 import java.util.Date;
 
 public class Orders {
-    private Integer id;
+    private Integer idd;
 
     private Integer userid;
 
@@ -23,12 +23,12 @@ public class Orders {
 
     private Integer cartid;
 
-    public Integer getId() {
-        return id;
+    public Integer getIdd() {
+        return idd;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdd(Integer idd) {
+        this.idd = idd;
     }
 
     public Integer getUserid() {

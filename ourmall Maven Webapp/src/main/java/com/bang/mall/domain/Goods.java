@@ -13,7 +13,7 @@ public class Goods {
 
     private Integer goodsSell;
 
-    private Date create;
+    private Date createTime;
 
     public Integer getGoodsid() {
         return goodsid;
@@ -55,11 +55,11 @@ public class Goods {
         this.goodsSell = goodsSell;
     }
 
-    public Date getCreate() {
-        return create;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate(Date create) {
-        this.create = create;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

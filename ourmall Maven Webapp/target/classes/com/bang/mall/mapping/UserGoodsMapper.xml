@@ -2,27 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bang.mall.dao.UserGoodsMapper" >
   <resultMap id="BaseResultMap" type="com.bang.mall.domain.UserGoods" >
-    <id column="Id" property="id" jdbcType="INTEGER" />
+    <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="orderID" property="orderid" jdbcType="INTEGER" />
     <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
     <result column="goods_number" property="goodsNumber" jdbcType="INTEGER" />
     <result column="goods_price" property="goodsPrice" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, orderID, goods_name, goods_number, goods_price
+    ID, orderID, goods_name, goods_number, goods_price
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_usergoods
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_usergoods
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bang.mall.domain.UserGoods" >
-    insert into tb_usergoods (Id, orderID, goods_name, 
+    insert into tb_usergoods (ID, orderID, goods_name, 
       goods_number, goods_price)
     values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
       #{goodsNumber,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DOUBLE})
@@ -31,7 +31,7 @@
     insert into tb_usergoods
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        Id,
+        ID,
       </if>
       <if test="orderid != null" >
         orderID,
@@ -80,7 +80,7 @@
         goods_price = #{goodsPrice,jdbcType=DOUBLE},
       </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bang.mall.domain.UserGoods" >
     update tb_usergoods
@@ -88,6 +88,6 @@
       goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_number = #{goodsNumber,jdbcType=INTEGER},
       goods_price = #{goodsPrice,jdbcType=DOUBLE}
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

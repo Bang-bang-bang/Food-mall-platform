@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bang.mall.dao.PicAddressMapper" >
   <resultMap id="BaseResultMap" type="com.bang.mall.domain.PicAddress" >
-    <id column="Id" property="id" jdbcType="INTEGER" />
+    <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="picaddID" property="picaddid" jdbcType="INTEGER" />
     <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, picaddID, address
+    ID, picaddID, address
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_picaddress
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_picaddress
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bang.mall.domain.PicAddress" >
-    insert into tb_picaddress (Id, picaddID, address
+    insert into tb_picaddress (ID, picaddID, address
       )
     values (#{id,jdbcType=INTEGER}, #{picaddid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}
       )
@@ -29,7 +29,7 @@
     insert into tb_picaddress
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        Id,
+        ID,
       </if>
       <if test="picaddid != null" >
         picaddID,
@@ -60,12 +60,12 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bang.mall.domain.PicAddress" >
     update tb_picaddress
     set picaddID = #{picaddid,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR}
-    where Id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

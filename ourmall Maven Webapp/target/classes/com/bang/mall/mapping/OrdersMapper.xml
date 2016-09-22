@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bang.mall.dao.OrdersMapper" >
   <resultMap id="BaseResultMap" type="com.bang.mall.domain.Orders" >
-    <id column="Id" property="id" jdbcType="INTEGER" />
+    <id column="IdD" property="idd" jdbcType="INTEGER" />
     <result column="userID" property="userid" jdbcType="INTEGER" />
     <result column="orderID" property="orderid" jdbcType="INTEGER" />
     <result column="order_state" property="orderState" jdbcType="VARCHAR" />
@@ -14,25 +14,25 @@
     <result column="cartID" property="cartid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, userID, orderID, order_state, goods_totalprice, delivery_time, Receiving_time, 
+    IdD, userID, orderID, order_state, goods_totalprice, delivery_time, Receiving_time, 
     display, create_time, cartID
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_orders
-    where Id = #{id,jdbcType=INTEGER}
+    where IdD = #{idd,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_orders
-    where Id = #{id,jdbcType=INTEGER}
+    where IdD = #{idd,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bang.mall.domain.Orders" >
-    insert into tb_orders (Id, userID, orderID, 
+    insert into tb_orders (IdD, userID, orderID, 
       order_state, goods_totalprice, delivery_time, 
       Receiving_time, display, create_time, 
       cartID)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, 
+    values (#{idd,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, 
       #{orderState,jdbcType=VARCHAR}, #{goodsTotalprice,jdbcType=INTEGER}, #{deliveryTime,jdbcType=TIMESTAMP}, 
       #{receivingTime,jdbcType=TIMESTAMP}, #{display,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{cartid,jdbcType=INTEGER})
@@ -40,8 +40,8 @@
   <insert id="insertSelective" parameterType="com.bang.mall.domain.Orders" >
     insert into tb_orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        Id,
+      <if test="idd != null" >
+        IdD,
       </if>
       <if test="userid != null" >
         userID,
@@ -72,8 +72,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="idd != null" >
+        #{idd,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
@@ -135,7 +135,7 @@
         cartID = #{cartid,jdbcType=INTEGER},
       </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
+    where IdD = #{idd,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bang.mall.domain.Orders" >
     update tb_orders
@@ -148,6 +148,6 @@
       display = #{display,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       cartID = #{cartid,jdbcType=INTEGER}
-    where Id = #{id,jdbcType=INTEGER}
+    where IdD = #{idd,jdbcType=INTEGER}
   </update>
 </mapper>
