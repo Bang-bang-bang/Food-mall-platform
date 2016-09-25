@@ -3,19 +3,35 @@ package com.bang.mall.domain;
 import java.util.Date;
 
 public class Users {
-    private Integer userid;
+    private Integer userid;//用户id
 
-    private String username;
+    private String username;//用户名
 
-    private String password;
+    private String password;//用户密码
 
-    private String school;
+    private String school;//学校
 
-    private String sex;
+    private String sex;//性别
 
-    private Date createTime;
+    private Date createTime;//用户创建时间
 
-    public Integer getUserid() {
+    private String phone;//电话号码
+
+    private String name;//用户真实姓名
+
+    private String picurl;//头像URL
+    
+    private String msg;//（与数据库无关）
+
+    public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public Integer getUserid() {
         return userid;
     }
 
@@ -61,5 +77,29 @@ public class Users {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getPicurl() {
+        return picurl;
+    }
+
+    public void setPicurl(String picurl) {
+        this.picurl = picurl == null ? null : picurl.trim();
     }
 }

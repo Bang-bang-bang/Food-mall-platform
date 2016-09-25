@@ -8,9 +8,12 @@
     <result column="school" property="school" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="picUrl" property="picurl" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    userID, username, password, school, sex, create_time
+    userID, username, password, school, sex, create_time, phone, name, picUrl
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +27,12 @@
   </delete>
   <insert id="insert" parameterType="com.bang.mall.domain.Users" >
     insert into tb_users (userID, username, password, 
-      school, sex, create_time
+      school, sex, create_time, 
+      phone, name, picUrl
       )
     values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{school,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      #{school,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{picurl,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bang.mall.domain.Users" >
@@ -51,6 +56,15 @@
       <if test="createTime != null" >
         create_time,
       </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="picurl != null" >
+        picUrl,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -70,6 +84,15 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        #{picurl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +114,15 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        picUrl = #{picurl,jdbcType=VARCHAR},
+      </if>
     </set>
     where userID = #{userid,jdbcType=INTEGER}
   </update>
@@ -100,7 +132,22 @@
       password = #{password,jdbcType=VARCHAR},
       school = #{school,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      picUrl = #{picurl,jdbcType=VARCHAR}
     where userID = #{userid,jdbcType=INTEGER}
   </update>
+  <!-- 下面为自己手写的SQL语句 -->
+  <select id="userLogin" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Users" >
+    select * from tb_users where username=#{username,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}
+  </select>
+  <select id="checkPassword" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Users" >
+    select * from tb_users where userID = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectUsers" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Users" >
+    select * from tb_users 
+  </select>
+  
+  
 </mapper>

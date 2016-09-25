@@ -8,9 +8,15 @@
     <result column="goods_detals" property="goodsDetals" jdbcType="VARCHAR" />
     <result column="goods_sell" property="goodsSell" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="goods_price" property="goodsPrice" jdbcType="REAL" />
+    <result column="goods_users" property="goodsUsers" jdbcType="INTEGER" />
+    <result column="goods_state" property="goodsState" jdbcType="VARCHAR" />
+    <result column="goods1" property="goods1" jdbcType="VARCHAR" />
+    <result column="goods2" property="goods2" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    goodsID, goods_name, goods_total, goods_detals, goods_sell, create_time
+    goodsID, goods_name, goods_total, goods_detals, goods_sell, create_time, goods_price, 
+    goods_users, goods_state, goods1, goods2
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,11 +30,13 @@
   </delete>
   <insert id="insert" parameterType="com.bang.mall.domain.Goods" >
     insert into tb_goods (goodsID, goods_name, goods_total, 
-      goods_detals, goods_sell, create_time
-      )
+      goods_detals, goods_sell, create_time, 
+      goods_price, goods_users, goods_state, 
+      goods1, goods2)
     values (#{goodsid,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsTotal,jdbcType=INTEGER}, 
-      #{goodsDetals,jdbcType=VARCHAR}, #{goodsSell,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{goodsDetals,jdbcType=VARCHAR}, #{goodsSell,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{goodsPrice,jdbcType=REAL}, #{goodsUsers,jdbcType=INTEGER}, #{goodsState,jdbcType=VARCHAR}, 
+      #{goods1,jdbcType=VARCHAR}, #{goods2,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bang.mall.domain.Goods" >
     insert into tb_goods
@@ -51,6 +59,21 @@
       <if test="createTime != null" >
         create_time,
       </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="goodsUsers != null" >
+        goods_users,
+      </if>
+      <if test="goodsState != null" >
+        goods_state,
+      </if>
+      <if test="goods1 != null" >
+        goods1,
+      </if>
+      <if test="goods2 != null" >
+        goods2,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="goodsid != null" >
@@ -70,6 +93,21 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="goodsUsers != null" >
+        #{goodsUsers,jdbcType=INTEGER},
+      </if>
+      <if test="goodsState != null" >
+        #{goodsState,jdbcType=VARCHAR},
+      </if>
+      <if test="goods1 != null" >
+        #{goods1,jdbcType=VARCHAR},
+      </if>
+      <if test="goods2 != null" >
+        #{goods2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +129,21 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="goodsUsers != null" >
+        goods_users = #{goodsUsers,jdbcType=INTEGER},
+      </if>
+      <if test="goodsState != null" >
+        goods_state = #{goodsState,jdbcType=VARCHAR},
+      </if>
+      <if test="goods1 != null" >
+        goods1 = #{goods1,jdbcType=VARCHAR},
+      </if>
+      <if test="goods2 != null" >
+        goods2 = #{goods2,jdbcType=VARCHAR},
+      </if>
     </set>
     where goodsID = #{goodsid,jdbcType=INTEGER}
   </update>
@@ -100,7 +153,56 @@
       goods_total = #{goodsTotal,jdbcType=INTEGER},
       goods_detals = #{goodsDetals,jdbcType=VARCHAR},
       goods_sell = #{goodsSell,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      goods_price = #{goodsPrice,jdbcType=REAL},
+      goods_users = #{goodsUsers,jdbcType=INTEGER},
+      goods_state = #{goodsState,jdbcType=VARCHAR},
+      goods1 = #{goods1,jdbcType=VARCHAR},
+      goods2 = #{goods2,jdbcType=VARCHAR}
     where goodsID = #{goodsid,jdbcType=INTEGER}
   </update>
+  
+  <!-- my SQL -->
+    <select id="selectByGoodsPropertyOrSort" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Goods" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods
+      <!-- 无查询条件按价格降序 -->
+      <if test="priceInteger == 1 and sellInteger == null and goodsName == null" >
+        order by goods_price DESC
+      </if>
+       <!-- 无查询条件按销量人数降序 -->
+      <if test="priceInteger == null and sellInteger == 1 and goodsName == null" >
+        order by goods_users DESC
+      </if>
+      <!-- 无查询条件按价格升序 -->
+      <if test="priceInteger == 2 and sellInteger == null and goodsName == null" >
+        order by goods_price ASC
+      </if>
+       <!-- 无查询条件按销量人数升序 -->
+      <if test="priceInteger == null and sellInteger == 2 and goodsName == null" >
+        order by goods_users ASC
+      </if>       
+      <!-- 有查询条件无任何排序 -->
+      <if test="priceInteger == null and sellInteger == null and goodsName != null" >
+        where goods_name like '%${goodsName}%'
+      </if>
+      <!-- 有查询条件按价格降序 -->
+      <if test="priceInteger == 1 and goodsName != null and sellInteger == null" >
+        where goods_name like '%${goodsName}%' order by goods_price DESC
+      </if>
+      <!-- 有查询条件按销量人数降序 -->
+      <if test="goodsName != null and sellInteger == 1 and priceInteger == null" >
+        where goods_name like '%${goodsName}%' order by goods_users DESC
+      </if>
+      <!-- 有查询条件按价格升序 -->
+      <if test="priceInteger == 2 and goodsName != null and sellInteger == null" >
+       where goods_name like '%${goodsName}%' order by goods_price ASC
+      </if>
+       <!-- 有查询条件按销量人数升序 -->
+      <if test="goodsName != null and sellInteger == 2 and priceInteger == null" >
+       where goods_name like '%${goodsName}%' order by goods_users ASC
+      </if>  
+  </select>
+  
 </mapper>
