@@ -1,5 +1,7 @@
 package com.bang.mall.dao;
 
+import java.util.List;
+
 import com.bang.mall.domain.DetailPic;
 
 public interface DetailPicMapper {
@@ -14,4 +16,6 @@ public interface DetailPicMapper {
     int updateByPrimaryKeySelective(DetailPic record);
 
     int updateByPrimaryKey(DetailPic record);
+    
+    List<DetailPic> selectByGoodsKey(Integer id);
 }

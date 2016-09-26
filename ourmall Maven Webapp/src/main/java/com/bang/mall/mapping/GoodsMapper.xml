@@ -166,7 +166,7 @@
     <select id="selectByGoodsPropertyOrSort" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Goods" >
     select 
     <include refid="Base_Column_List" />
-    from tb_goods
+    from tb_goods order by goodsID DESC
       <!-- 无查询条件按价格降序 -->
       <if test="priceInteger == 1 and sellInteger == null and goodsName == null" >
         order by goods_price DESC

@@ -1,6 +1,7 @@
 package com.bang.mall.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Goods {
 	private Integer goodsid;// 商品id
@@ -30,6 +31,27 @@ public class Goods {
 	private Integer priceInteger;//价格排序判断
 	
 	private Integer sellInteger;//销量排序判断
+	
+	private List<DetailPic> mDetailPics;//商品详情图片链接
+	
+	private List<PicAddress> mAddresses;//商品轮播图图片链接
+
+	
+	public List<DetailPic> getmDetailPics() {
+		return mDetailPics;
+	}
+
+	public void setmDetailPics(List<DetailPic> mDetailPics) {
+		this.mDetailPics = mDetailPics;
+	}
+
+	public List<PicAddress> getmAddresses() {
+		return mAddresses;
+	}
+
+	public void setmAddresses(List<PicAddress> mAddresses) {
+		this.mAddresses = mAddresses;
+	}
 
 	public Integer getPriceInteger() {
 		return priceInteger;

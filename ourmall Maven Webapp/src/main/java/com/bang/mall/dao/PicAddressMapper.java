@@ -1,5 +1,7 @@
 package com.bang.mall.dao;
 
+import java.util.List;
+
 import com.bang.mall.domain.PicAddress;
 
 public interface PicAddressMapper {
@@ -14,4 +16,6 @@ public interface PicAddressMapper {
     int updateByPrimaryKeySelective(PicAddress record);
 
     int updateByPrimaryKey(PicAddress record);
+    
+    List<PicAddress> selectByGoodsKey(Integer id);
 }

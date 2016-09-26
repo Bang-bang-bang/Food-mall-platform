@@ -1,5 +1,7 @@
 package com.bang.mall.dao;
 
+import java.util.List;
+
 import com.bang.mall.domain.ReceiveMsg;
 
 public interface ReceiveMsgMapper {
@@ -14,4 +16,6 @@ public interface ReceiveMsgMapper {
     int updateByPrimaryKeySelective(ReceiveMsg record);
 
     int updateByPrimaryKey(ReceiveMsg record);
+    
+    List<ReceiveMsg> selectByUserKey(Integer id);
 }

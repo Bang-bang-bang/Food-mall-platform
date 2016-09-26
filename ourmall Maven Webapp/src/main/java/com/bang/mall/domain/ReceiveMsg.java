@@ -15,6 +15,12 @@ public class ReceiveMsg {
 
     private Date createTime;
 
+    private String school;
+
+    private String msg1;
+
+    private String msg2;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +67,29 @@ public class ReceiveMsg {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school == null ? null : school.trim();
+    }
+
+    public String getMsg1() {
+        return msg1;
+    }
+
+    public void setMsg1(String msg1) {
+        this.msg1 = msg1 == null ? null : msg1.trim();
+    }
+
+    public String getMsg2() {
+        return msg2;
+    }
+
+    public void setMsg2(String msg2) {
+        this.msg2 = msg2 == null ? null : msg2.trim();
     }
 }

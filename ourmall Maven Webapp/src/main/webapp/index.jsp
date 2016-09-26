@@ -4,8 +4,8 @@
     
 </script>
 <body>
-<form action="userController/updatemsg.do">
-<input type="text" name="userid">
+<form action="goodsController/showAllGoods.do" method="post">
+<input type="text" name="goodsName">
 <input type="text" name="password">
 <input type="text" name="newpass">
 <input type="submit" value="哥哥按钮">

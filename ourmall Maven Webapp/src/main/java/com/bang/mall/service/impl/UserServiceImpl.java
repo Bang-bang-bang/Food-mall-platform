@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bang.mall.dao.OrdersMapper;
+import com.bang.mall.dao.ReceiveMsgMapper;
 import com.bang.mall.dao.UsersMapper;
 import com.bang.mall.domain.Users;
 import com.bang.mall.service.UserServiceI;
@@ -13,6 +15,10 @@ import com.bang.mall.service.UserServiceI;
 public class UserServiceImpl implements UserServiceI {
 	@Autowired
 	private UsersMapper usersMapper;
+	@Autowired
+	private ReceiveMsgMapper receiveMsgMapper;
+	@Autowired
+	private OrdersMapper ordersMapper;
 
 	/**
 	 * 用户登录判断
@@ -63,7 +69,10 @@ public class UserServiceImpl implements UserServiceI {
 	 * 通过用户ID查询用户信息
 	 */
 	public Users getUserMsg(Integer userid) {
-		return usersMapper.selectByPrimaryKey(userid);
+		Users mUsers=usersMapper.selectByPrimaryKey(userid);
+		mUsers.setmReceiveMsgs(receiveMsgMapper.selectByUserKey(userid));
+		
+		return mUsers;
 	}
 	/**
 	 * 修改密码

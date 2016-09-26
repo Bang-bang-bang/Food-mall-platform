@@ -8,9 +8,12 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="msg1" property="msg1" jdbcType="VARCHAR" />
+    <result column="msg2" property="msg2" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, userID, name, address, phone, create_time
+    ID, userID, name, address, phone, create_time, school, msg1, msg2
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,11 +27,11 @@
   </delete>
   <insert id="insert" parameterType="com.bang.mall.domain.ReceiveMsg" >
     insert into tb_receive_msg (ID, userID, name, 
-      address, phone, create_time
-      )
+      address, phone, create_time, 
+      school, msg1, msg2)
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{school,jdbcType=VARCHAR}, #{msg1,jdbcType=VARCHAR}, #{msg2,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bang.mall.domain.ReceiveMsg" >
     insert into tb_receive_msg
@@ -51,6 +54,15 @@
       <if test="createTime != null" >
         create_time,
       </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="msg1 != null" >
+        msg1,
+      </if>
+      <if test="msg2 != null" >
+        msg2,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -70,6 +82,15 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="msg1 != null" >
+        #{msg1,jdbcType=VARCHAR},
+      </if>
+      <if test="msg2 != null" >
+        #{msg2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +112,15 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="msg1 != null" >
+        msg1 = #{msg1,jdbcType=VARCHAR},
+      </if>
+      <if test="msg2 != null" >
+        msg2 = #{msg2,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -100,7 +130,18 @@
       name = #{name,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      school = #{school,jdbcType=VARCHAR},
+      msg1 = #{msg1,jdbcType=VARCHAR},
+      msg2 = #{msg2,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- MySql -->
+  <select id="selectByUserKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_receive_msg
+    where userID = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -24,21 +24,19 @@ public class UserController extends BaseController<Users> {
 	private UserServiceI userServiceI;
 
 	/**
-	 * 用户登录
+	 * 用户登录 参数username：用户名 password：密码
 	 */
 	@RequestMapping(value = "/login")
-	public @ResponseBody JsonResult userLogin(Users users,
-			HttpSession httpSession) {
+	public @ResponseBody JsonResult userLogin(Users users) {
 		Users users1 = new Users();
 		users.setPassword(Encode.getEncode("MD5", users.getPassword()));
 		users1 = userServiceI.userLogin(users);
 		JsonResult jsonResult = new JsonResult(users1);
-		httpSession.setAttribute("user", users);
 		return jsonResult;
 	}
 
 	/**
-	 * 用户注册
+	 * 用户注册 参数username：用户名 password：密码 phone：电话号码
 	 */
 	@RequestMapping(value = "/register")
 	public @ResponseBody JsonResult userRegister(Users users) {
@@ -51,8 +49,7 @@ public class UserController extends BaseController<Users> {
 	}
 
 	/**
-	 * 修改用户信息
-	 * 
+	 * 修改用户信息 参数picurl：头像url(尚未完成) sex：性别 name：用户姓名 school：学校 phone：联系电话
 	 */
 	@RequestMapping(value = "/updatemsg")
 	public @ResponseBody JsonResult userUpdate(Users users) {
@@ -63,13 +60,14 @@ public class UserController extends BaseController<Users> {
 	}
 
 	/**
-	 * 修改用户密码
+	 * 修改用户密码 参数password：旧密码 newpass:新密码
 	 */
 	@RequestMapping(value = "/updatepass")
 	public @ResponseBody JsonResult userUpdatepass(Users user, String newpass) {
 		Users tUsers = userServiceI.getUserMsg(user.getUserid());
-		if (tUsers.getPassword().equals(user.getPassword())) {
-			tUsers.setPassword(newpass);
+		if (tUsers.getPassword().equals(
+				Encode.getEncode("MD5", user.getPassword()))) {
+			tUsers.setPassword(Encode.getEncode("MD5", newpass));
 			userServiceI.updaUserPass(tUsers);
 			tUsers.setMsg("修改密码成功");
 		} else {
@@ -77,5 +75,18 @@ public class UserController extends BaseController<Users> {
 		}
 		JsonResult jsonResult = new JsonResult(tUsers);
 		return jsonResult;
+	}
+
+	/**
+	 * 查看用户信息或收件人信息或订单信息
+	 * 
+	 */
+	@RequestMapping(value = "/showUserMsg")
+	public @ResponseBody JsonResult showUserMsg(Users users) {
+
+		JsonResult jsonResult = new JsonResult(userServiceI.getUserMsg(users
+				.getUserid()));
+		return jsonResult;
+
 	}
 }
