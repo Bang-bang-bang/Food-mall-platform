@@ -1,12 +1,23 @@
 package com.bang.mall.controller;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bang.mall.commons.JsonResult;
 import com.bang.mall.domain.Goods;
+import com.bang.mall.domain.IndexItem;
 import com.bang.mall.service.GoodsServiceI;
 
 @Controller
@@ -14,6 +25,20 @@ import com.bang.mall.service.GoodsServiceI;
 public class GoodsController extends BaseController<Goods> {
 	@Autowired
 	private GoodsServiceI goodsServiceI;
+
+	/**
+	 * 首页商品展示
+	 */
+	@RequestMapping(value = "/showIndex")
+	public @ResponseBody JsonResult showIndex(Goods goods) {
+		IndexItem indexItem = new IndexItem();
+		Goods goods3 = new Goods();
+		goods3.setSellInteger(1);
+		indexItem.setmNewGoods(goodsServiceI.showOrSortGoods(goods));
+		indexItem.setmSellGoods(goodsServiceI.showOrSortGoods(goods3));
+		JsonResult jsonResult = new JsonResult(indexItem);
+		return jsonResult;
+	}
 
 	/**
 	 * showAllGoods 全部商品搜索、排序均可实现 需要参数如下： goodsName 模糊查询条件 priceInteger 按价格排序
@@ -42,12 +67,53 @@ public class GoodsController extends BaseController<Goods> {
 	}
 
 	/**
-	 * 
+	 * 按分类显示 参数goodsClass：商品类别 priceInteger 按价格排序 1：降序 2：升序 sellInteger 按购买人数排序
+	 * 1:降序 2：升序
 	 */
-	@RequestMapping(value="/showAllGoodsByClass")
+	@RequestMapping(value = "/showAllGoodsByClass")
 	public @ResponseBody JsonResult showAllGoodsByClass(Goods goods) {
 		JsonResult jsonResult = new JsonResult(
 				goodsServiceI.showClassOrSortGoods(goods));
 		return jsonResult;
+	}
+
+	/**
+	 * 
+	 * @param goods
+	 * @param file
+	 *            图片文件
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	private String fildUpload(
+			Goods goods,
+			@RequestParam(value = "file", required = false) MultipartFile[] file,
+			HttpServletRequest request) throws Exception {
+		// 获得物理路径webapp所在路径
+		String pathRoot = request.getSession().getServletContext()
+				.getRealPath("");
+		String path = "";
+		List<String> listImagePath = new ArrayList<String>();
+		for (MultipartFile mf : file) {
+			if (!mf.isEmpty()) {
+				// 生成uuid作为文件名称
+				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+				// 获得文件类型（可以判断如果不是图片，禁止上传）
+				String contentType = mf.getContentType();
+				// 获得文件后缀名称
+				String imageName = contentType.substring(contentType
+						.indexOf("/") + 1);
+				path = "/images/goods_images/" + uuid + "." + imageName;
+				mf.transferTo(new File(pathRoot + path));
+				String pString = "http://localhost:8080/ourmall/images/goods_images/"
+						+ uuid + "." + imageName;
+				listImagePath.add(pString);
+			}
+		}
+		System.out.println(path);
+		request.setAttribute("imagesPathList", listImagePath);
+		return "success";
 	}
 }
