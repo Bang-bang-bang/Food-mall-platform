@@ -18,4 +18,6 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods record);
     
     List<Goods> selectByGoodsPropertyOrSort(Goods record);
+    
+    List<Goods> selectByGoodsClassOrSort(Goods record);
 }

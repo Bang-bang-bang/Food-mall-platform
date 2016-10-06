@@ -1,5 +1,7 @@
 package com.bang.mall.dao;
 
+import java.util.List;
+
 import com.bang.mall.domain.Orders;
 
 public interface OrdersMapper {
@@ -14,4 +16,12 @@ public interface OrdersMapper {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
+    
+    List<Orders> selectByUserKey(Orders id);
+    
+    int deleteByOrderKey(Orders orders);
+    
+    int updateByOrderKeySelective(Orders record);
+    
+    Orders selectByOrderKey(Integer id);
 }

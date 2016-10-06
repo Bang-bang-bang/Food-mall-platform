@@ -36,8 +36,10 @@ public interface GoodsServiceI {
 	// 按销量排序由高到低排序
 	List<Goods> getDescSelGoods();
 
-	// 按价格由排序由低到高排序
-	List<Goods> getDescPriceGoods();
+	
+	List<Goods> showClassOrSortGoods(Goods goods);
+	
+	
 	
 	
 }

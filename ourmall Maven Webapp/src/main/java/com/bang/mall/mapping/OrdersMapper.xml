@@ -6,16 +6,21 @@
     <result column="userID" property="userid" jdbcType="INTEGER" />
     <result column="orderID" property="orderid" jdbcType="INTEGER" />
     <result column="order_state" property="orderState" jdbcType="VARCHAR" />
-    <result column="goods_totalprice" property="goodsTotalprice" jdbcType="INTEGER" />
+    <result column="goods_totalprice" property="goodsTotalprice" jdbcType="REAL" />
     <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
     <result column="Receiving_time" property="receivingTime" jdbcType="TIMESTAMP" />
     <result column="display" property="display" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="cartID" property="cartid" jdbcType="INTEGER" />
+    <result column="order1" property="order1" jdbcType="VARCHAR" />
+    <result column="order2" property="order2" jdbcType="VARCHAR" />
+    <result column="RecAddress" property="recaddress" jdbcType="VARCHAR" />
+    <result column="RecName" property="recname" jdbcType="VARCHAR" />
+    <result column="RecPhone" property="recphone" />
   </resultMap>
   <sql id="Base_Column_List" >
     IdD, userID, orderID, order_state, goods_totalprice, delivery_time, Receiving_time, 
-    display, create_time, cartID
+    display, create_time, cartID, order1, order2, RecAddress, RecName, RecPhone
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,11 +36,15 @@
     insert into tb_orders (IdD, userID, orderID, 
       order_state, goods_totalprice, delivery_time, 
       Receiving_time, display, create_time, 
-      cartID)
+      cartID, order1, order2, 
+      RecAddress, RecName, RecPhone
+      )
     values (#{idd,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, 
-      #{orderState,jdbcType=VARCHAR}, #{goodsTotalprice,jdbcType=INTEGER}, #{deliveryTime,jdbcType=TIMESTAMP}, 
+      #{orderState,jdbcType=VARCHAR}, #{goodsTotalprice,jdbcType=REAL}, #{deliveryTime,jdbcType=TIMESTAMP}, 
       #{receivingTime,jdbcType=TIMESTAMP}, #{display,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{cartid,jdbcType=INTEGER})
+      #{cartid,jdbcType=INTEGER}, #{order1,jdbcType=VARCHAR}, #{order2,jdbcType=VARCHAR}, 
+      #{recaddress,jdbcType=VARCHAR}, #{recname,jdbcType=VARCHAR}, #{recphone}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bang.mall.domain.Orders" >
     insert into tb_orders
@@ -70,6 +79,21 @@
       <if test="cartid != null" >
         cartID,
       </if>
+      <if test="order1 != null" >
+        order1,
+      </if>
+      <if test="order2 != null" >
+        order2,
+      </if>
+      <if test="recaddress != null" >
+        RecAddress,
+      </if>
+      <if test="recname != null" >
+        RecName,
+      </if>
+      <if test="recphone != null" >
+        RecPhone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="idd != null" >
@@ -85,7 +109,7 @@
         #{orderState,jdbcType=VARCHAR},
       </if>
       <if test="goodsTotalprice != null" >
-        #{goodsTotalprice,jdbcType=INTEGER},
+        #{goodsTotalprice,jdbcType=REAL},
       </if>
       <if test="deliveryTime != null" >
         #{deliveryTime,jdbcType=TIMESTAMP},
@@ -102,9 +126,122 @@
       <if test="cartid != null" >
         #{cartid,jdbcType=INTEGER},
       </if>
+      <if test="order1 != null" >
+        #{order1,jdbcType=VARCHAR},
+      </if>
+      <if test="order2 != null" >
+        #{order2,jdbcType=VARCHAR},
+      </if>
+      <if test="recaddress != null" >
+        #{recaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recname != null" >
+        #{recname,jdbcType=VARCHAR},
+      </if>
+      <if test="recphone != null" >
+        #{recphone},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.bang.mall.domain.Orders" >
+    update tb_orders
+    <set >
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        orderID = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTotalprice != null" >
+        goods_totalprice = #{goodsTotalprice,jdbcType=REAL},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivingTime != null" >
+        Receiving_time = #{receivingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="display != null" >
+        display = #{display,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cartid != null" >
+        cartID = #{cartid,jdbcType=INTEGER},
+      </if>
+      <if test="order1 != null" >
+        order1 = #{order1,jdbcType=VARCHAR},
+      </if>
+      <if test="order2 != null" >
+        order2 = #{order2,jdbcType=VARCHAR},
+      </if>
+      <if test="recaddress != null" >
+        RecAddress = #{recaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recname != null" >
+        RecName = #{recname,jdbcType=VARCHAR},
+      </if>
+      <if test="recphone != null" >
+        RecPhone = #{recphone},
+      </if>
+    </set>
+    where IdD = #{idd,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bang.mall.domain.Orders" >
+    update tb_orders
+    set userID = #{userid,jdbcType=INTEGER},
+      orderID = #{orderid,jdbcType=INTEGER},
+      order_state = #{orderState,jdbcType=VARCHAR},
+      goods_totalprice = #{goodsTotalprice,jdbcType=REAL},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      Receiving_time = #{receivingTime,jdbcType=TIMESTAMP},
+      display = #{display,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      cartID = #{cartid,jdbcType=INTEGER},
+      order1 = #{order1,jdbcType=VARCHAR},
+      order2 = #{order2,jdbcType=VARCHAR},
+      RecAddress = #{recaddress,jdbcType=VARCHAR},
+      RecName = #{recname,jdbcType=VARCHAR},
+      RecPhone = #{recphone}
+    where IdD = #{idd,jdbcType=INTEGER}
+  </update>
+  
+   <!-- MySql -->
+  <select id="selectByUserKey" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Orders" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_orders
+    
+    <if test="stateInteger==1">
+    where userID = #{userid}
+    and order_state = '已完成' and display=1
+    </if>
+    <if test="stateInteger==2">
+    where userID = #{userid} 
+    and order_state = '已取消' and display=1
+    </if>
+    <if test="stateInteger==3">
+    where userID = #{userid}
+    and order_state = '待付款' and display=1
+    </if>
+     <if test="stateInteger==4">
+     where userID = #{userid}
+     and order_state = '待收货' and display=1
+    </if>
+    <if test="stateInteger==null">
+    where userID = #{userid} and display=1
+    </if>
+  </select>
+  <delete id="deleteByOrderKey" parameterType="com.bang.mall.domain.Orders" >
+    delete from tb_orders
+    where orderID = #{orderid}
+  </delete>
+  
+  <update id="updateByOrderKeySelective" parameterType="com.bang.mall.domain.Orders" >
     update tb_orders
     <set >
       <if test="userid != null" >
@@ -134,20 +271,30 @@
       <if test="cartid != null" >
         cartID = #{cartid,jdbcType=INTEGER},
       </if>
+      <if test="order1 != null" >
+        order1 = #{order1,jdbcType=VARCHAR},
+      </if>
+      <if test="order2 != null" >
+        order2 = #{order2,jdbcType=VARCHAR},
+      </if>
+       <if test="recaddress != null" >
+        RecAddress = #{recaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recname != null" >
+        RecName = #{recname,jdbcType=VARCHAR},
+      </if>
+      <if test="recphone != null" >
+        RecPhone = #{recphone},
+      </if>
     </set>
-    where IdD = #{idd,jdbcType=INTEGER}
+    where orderID = #{orderid}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bang.mall.domain.Orders" >
-    update tb_orders
-    set userID = #{userid,jdbcType=INTEGER},
-      orderID = #{orderid,jdbcType=INTEGER},
-      order_state = #{orderState,jdbcType=VARCHAR},
-      goods_totalprice = #{goodsTotalprice,jdbcType=INTEGER},
-      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
-      Receiving_time = #{receivingTime,jdbcType=TIMESTAMP},
-      display = #{display,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      cartID = #{cartid,jdbcType=INTEGER}
-    where IdD = #{idd,jdbcType=INTEGER}
-  </update>
+  
+  <select id="selectByOrderKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_orders
+    where orderID = #{id,jdbcType=INTEGER}
+  </select>
+  
 </mapper>

@@ -3,25 +3,35 @@ package com.bang.mall.domain;
 import java.util.Date;
 
 public class ReceiveMsg {
-    private Integer id;
+    private Integer id;//收件人信息表id
 
-    private Integer userid;
+    private Integer userid;//用户id
 
-    private String name;
+    private String name;//收件人姓名
 
-    private String address;
+    private String address;//收件人地址
 
-    private String phone;
+    private String phone;//收件人电话
 
-    private Date createTime;
+    private Date createTime;//收件人信息创建时间
 
-    private String school;
+    private String school;//收件人学校
 
-    private String msg1;
+    private String msg1;//默认收件人判断
 
-    private String msg2;
+    private String msg2;//备用字段
+    
+    private Integer mainAddress;//设置为默认地址
 
-    public Integer getId() {
+    public Integer getMainAddress() {
+		return mainAddress;
+	}
+
+	public void setMainAddress(Integer mainAddress) {
+		this.mainAddress = mainAddress;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -72,9 +72,24 @@ public class GoodsServiceImpl implements GoodsServiceI {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	/**
+	 * 全部商品或搜索
+	 */
 	public List<Goods> showOrSortGoods(Goods goods) {
 		List<Goods> mGoods = goodsMapper.selectByGoodsPropertyOrSort(goods);
+		for (int i = 0; i < mGoods.size(); i++) {
+			List<DetailPic> mDetailPics = detailPicMapper.selectByGoodsKey(mGoods.get(i).getGoodsid());
+			List<PicAddress> mAddresses = picAddressMapper.selectByGoodsKey(mGoods.get(i).getGoodsid());
+			mGoods.get(i).setmDetailPics(mDetailPics);
+			mGoods.get(i).setmAddresses(mAddresses);
+		}		
+		return mGoods;
+	}
+	/**
+	 * 分类查看所有商品
+	 */
+	public List<Goods> showClassOrSortGoods(Goods goods) {
+		List<Goods> mGoods = goodsMapper.selectByGoodsClassOrSort(goods);
 		for (int i = 0; i < mGoods.size(); i++) {
 			List<DetailPic> mDetailPics = detailPicMapper.selectByGoodsKey(mGoods.get(i).getGoodsid());
 			List<PicAddress> mAddresses = picAddressMapper.selectByGoodsKey(mGoods.get(i).getGoodsid());

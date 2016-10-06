@@ -36,7 +36,37 @@ public class Goods {
 	
 	private List<PicAddress> mAddresses;//商品轮播图图片链接
 
+	private String goodsBornPlace;//原产地
+
+    private String goodsBornTime;//生产日期以及有效期
+
+    private String goodsClass;//商品种类
+    
 	
+	public String getGoodsBornPlace() {
+		return goodsBornPlace;
+	}
+
+	public void setGoodsBornPlace(String goodsBornPlace) {
+		this.goodsBornPlace = goodsBornPlace;
+	}
+
+	public String getGoodsBornTime() {
+		return goodsBornTime;
+	}
+
+	public void setGoodsBornTime(String goodsBornTime) {
+		this.goodsBornTime = goodsBornTime;
+	}
+
+	public String getGoodsClass() {
+		return goodsClass;
+	}
+
+	public void setGoodsClass(String goodsClass) {
+		this.goodsClass = goodsClass;
+	}
+
 	public List<DetailPic> getmDetailPics() {
 		return mDetailPics;
 	}

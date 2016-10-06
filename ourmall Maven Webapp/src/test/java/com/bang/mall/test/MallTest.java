@@ -1,5 +1,7 @@
 package com.bang.mall.test;
 
+import java.util.Calendar;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -26,13 +28,9 @@ public class MallTest {
 
 	@Test
 	public void MyTest() {
-		Users users = new Users();
-		Goods goods = new Goods();
-		goods.setGoodsName("瓜");
-		//goods.setSellInteger(MallStatus.PRICE_ASC);
-		
-		goods.setPriceInteger(MallStatus.PRICE_ASC);
-		System.out.println(goodsServiceI.showOrSortGoods(goods).get(1).getGoodsName());
+		Calendar calendar = Calendar.getInstance();
+		Integer orderid =  (int) calendar.getTime().getTime();
+		System.out.println(orderid);
 		
 	}
 }

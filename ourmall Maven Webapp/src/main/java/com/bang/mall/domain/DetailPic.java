@@ -1,11 +1,11 @@
 package com.bang.mall.domain;
 
 public class DetailPic {
-    private Integer id;
+    private Integer id;//商品详情页面图片id
 
-    private Integer picdtid;
+    private Integer picdtid;//商品id
 
-    private String address;
+    private String address;//图片地址
 
     public Integer getId() {
         return id;

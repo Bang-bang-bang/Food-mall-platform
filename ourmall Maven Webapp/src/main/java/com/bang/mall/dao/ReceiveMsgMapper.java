@@ -18,4 +18,6 @@ public interface ReceiveMsgMapper {
     int updateByPrimaryKey(ReceiveMsg record);
     
     List<ReceiveMsg> selectByUserKey(Integer id);
+    
+    ReceiveMsg selectByUserAndGetAddressKey(ReceiveMsg receiveMsg);
 }

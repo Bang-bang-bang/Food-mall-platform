@@ -13,10 +13,13 @@
     <result column="goods_state" property="goodsState" jdbcType="VARCHAR" />
     <result column="goods1" property="goods1" jdbcType="VARCHAR" />
     <result column="goods2" property="goods2" jdbcType="VARCHAR" />
+    <result column="goods_born_place" property="goodsBornPlace" jdbcType="VARCHAR" />
+    <result column="goods_born_time" property="goodsBornTime" jdbcType="VARCHAR" />
+    <result column="goods_class" property="goodsClass" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     goodsID, goods_name, goods_total, goods_detals, goods_sell, create_time, goods_price, 
-    goods_users, goods_state, goods1, goods2
+    goods_users, goods_state, goods1, goods2, goods_born_place, goods_born_time, goods_class
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -32,11 +35,13 @@
     insert into tb_goods (goodsID, goods_name, goods_total, 
       goods_detals, goods_sell, create_time, 
       goods_price, goods_users, goods_state, 
-      goods1, goods2)
+      goods1, goods2, goods_born_place, 
+      goods_born_time, goods_class)
     values (#{goodsid,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsTotal,jdbcType=INTEGER}, 
       #{goodsDetals,jdbcType=VARCHAR}, #{goodsSell,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{goodsPrice,jdbcType=REAL}, #{goodsUsers,jdbcType=INTEGER}, #{goodsState,jdbcType=VARCHAR}, 
-      #{goods1,jdbcType=VARCHAR}, #{goods2,jdbcType=VARCHAR})
+      #{goods1,jdbcType=VARCHAR}, #{goods2,jdbcType=VARCHAR}, #{goodsBornPlace,jdbcType=VARCHAR}, 
+      #{goodsBornTime,jdbcType=VARCHAR}, #{goodsClass,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bang.mall.domain.Goods" >
     insert into tb_goods
@@ -74,6 +79,15 @@
       <if test="goods2 != null" >
         goods2,
       </if>
+      <if test="goodsBornPlace != null" >
+        goods_born_place,
+      </if>
+      <if test="goodsBornTime != null" >
+        goods_born_time,
+      </if>
+      <if test="goodsClass != null" >
+        goods_class,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="goodsid != null" >
@@ -108,6 +122,15 @@
       </if>
       <if test="goods2 != null" >
         #{goods2,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBornPlace != null" >
+        #{goodsBornPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBornTime != null" >
+        #{goodsBornTime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsClass != null" >
+        #{goodsClass,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -144,6 +167,15 @@
       <if test="goods2 != null" >
         goods2 = #{goods2,jdbcType=VARCHAR},
       </if>
+      <if test="goodsBornPlace != null" >
+        goods_born_place = #{goodsBornPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBornTime != null" >
+        goods_born_time = #{goodsBornTime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsClass != null" >
+        goods_class = #{goodsClass,jdbcType=VARCHAR},
+      </if>
     </set>
     where goodsID = #{goodsid,jdbcType=INTEGER}
   </update>
@@ -158,11 +190,14 @@
       goods_users = #{goodsUsers,jdbcType=INTEGER},
       goods_state = #{goodsState,jdbcType=VARCHAR},
       goods1 = #{goods1,jdbcType=VARCHAR},
-      goods2 = #{goods2,jdbcType=VARCHAR}
+      goods2 = #{goods2,jdbcType=VARCHAR},
+      goods_born_place = #{goodsBornPlace,jdbcType=VARCHAR},
+      goods_born_time = #{goodsBornTime,jdbcType=VARCHAR},
+      goods_class = #{goodsClass,jdbcType=VARCHAR}
     where goodsID = #{goodsid,jdbcType=INTEGER}
   </update>
   
-  <!-- my SQL -->
+    <!-- my SQL -->
     <select id="selectByGoodsPropertyOrSort" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Goods" >
     select 
     <include refid="Base_Column_List" />
@@ -205,4 +240,30 @@
       </if>  
   </select>
   
+    <!-- my SQL -->
+    <select id="selectByGoodsClassOrSort" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Goods" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_goods  
+      <!-- 有条件无任何排序 -->
+      <if test="priceInteger == null and sellInteger == null" >
+        where goods_class = '${goodsClass}'
+      </if>
+      <!-- 有条件按价格降序 -->
+      <if test="priceInteger == 1  and sellInteger == null" >
+        where goods_class = #'${goodsClass}' order by goods_price DESC
+      </if>
+      <!-- 有条件按销量人数降序 -->
+      <if test=" sellInteger == 1 and priceInteger == null" >
+        where goods_class = #{goodsClass} order by goods_users DESC
+      </if>
+      <!-- 有条件按价格升序 -->
+      <if test="priceInteger == 2  and sellInteger == null" >
+       where goods_class = #{goodsClass} order by goods_price ASC
+      </if>
+       <!-- 有条件按销量人数升序 -->
+      <if test="sellInteger == 2 and priceInteger == null" >
+       where goods_class = #{goodsClass} order by goods_users ASC
+      </if>  
+  </select>
 </mapper>
