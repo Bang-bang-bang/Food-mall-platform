@@ -24,4 +24,6 @@ public interface OrdersMapper {
     int updateByOrderKeySelective(Orders record);
     
     Orders selectByOrderKey(Integer id);
+    
+    List<Orders> selectAllOrders(Orders record);
 }

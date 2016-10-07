@@ -76,4 +76,10 @@
     from tb_detailpic
     where picdtID = #{id,jdbcType=INTEGER}
   </select>
+  
+   <delete id="deleteByGoodsKey" parameterType="java.lang.Integer" >
+    delete from tb_detailpic
+    where picdtID = #{id,jdbcType=INTEGER}
+  </delete>
+  
 </mapper>

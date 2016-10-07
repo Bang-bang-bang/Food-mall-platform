@@ -76,4 +76,9 @@
     from tb_picaddress
     where picaddID = #{id,jdbcType=INTEGER}
   </select>
+  
+  <delete id="deleteByGoodsKey" parameterType="java.lang.Integer" >
+    delete from tb_picaddress
+    where picaddID = #{id,jdbcType=INTEGER}
+  </delete>
 </mapper>

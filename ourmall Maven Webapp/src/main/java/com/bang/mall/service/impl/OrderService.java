@@ -128,4 +128,25 @@ public class OrderService implements OrderServiceI {
 		return orders;
 	}
 
+	/**
+	 * 查询所有订单
+	 */
+	public List<Orders> selectAllOrders(Orders orders) {
+		return ordersMapper.selectAllOrders(orders);
+	}
+
+	/**
+	 * 查询制定订单
+	 */
+	public Orders showOrderByid(Integer idd) {
+		return ordersMapper.selectByPrimaryKey(idd);
+	}
+
+	/**
+	 * 修改订单
+	 */
+	public int updateByPrimaryKeySelective(Orders orders) {	
+		return ordersMapper.updateByPrimaryKeySelective(orders);
+	}
+
 }

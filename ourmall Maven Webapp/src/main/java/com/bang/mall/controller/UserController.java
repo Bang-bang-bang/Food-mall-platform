@@ -43,11 +43,12 @@ public class UserController extends BaseController<Users> {
 	 * 用户登录 参数username：用户名 password：密码
 	 */
 	@RequestMapping(value = "/login")
-	public @ResponseBody JsonResult userLogin(Users users) {
+	public @ResponseBody JsonResult userLogin(Users users,HttpSession session) {
 		Users users1 = new Users();
 		users.setPassword(Encode.getEncode("MD5", users.getPassword()));
 		users1 = userServiceI.userLogin(users);
 		JsonResult jsonResult = new JsonResult(users1);
+		session.setAttribute("user", users1);
 		return jsonResult;
 	}
 

@@ -12,4 +12,7 @@ public interface OrderServiceI {
 	Orders deleteOrder(Orders orders);
 	Item addOrder(Item item);
 	Orders showOrder(Integer orderid);
+	List<Orders> selectAllOrders(Orders orders);
+	Orders showOrderByid(Integer idd);
+	int updateByPrimaryKeySelective(Orders orders);
 }

@@ -18,4 +18,6 @@ public interface PicAddressMapper {
     int updateByPrimaryKey(PicAddress record);
     
     List<PicAddress> selectByGoodsKey(Integer id);
+    
+    int deleteByGoodsKey(Integer id);
 }

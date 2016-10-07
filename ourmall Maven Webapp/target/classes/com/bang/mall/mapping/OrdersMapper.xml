@@ -297,4 +297,22 @@
     where orderID = #{id,jdbcType=INTEGER}
   </select>
   
+    <select id="selectAllOrders" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Orders">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_orders
+      <if test="stateInteger==1">
+    where order_state = '已完成'
+     </if>
+      <if test="stateInteger==2">
+    where order_state = '已取消'
+     </if>
+      <if test="stateInteger==3">
+    where order_state = '待付款'
+     </if>
+      <if test="stateInteger==4">
+    where order_state = '待发货'
+     </if>
+  </select>
+  
 </mapper>

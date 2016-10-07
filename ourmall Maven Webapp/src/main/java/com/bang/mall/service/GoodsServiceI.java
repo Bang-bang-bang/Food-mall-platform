@@ -2,7 +2,10 @@ package com.bang.mall.service;
 
 import java.util.List;
 
+import com.bang.mall.domain.DetailPic;
 import com.bang.mall.domain.Goods;
+import com.bang.mall.domain.Orders;
+import com.bang.mall.domain.PicAddress;
 
 public interface GoodsServiceI {
 	// 查询热卖商品
@@ -39,7 +42,17 @@ public interface GoodsServiceI {
 	
 	List<Goods> showClassOrSortGoods(Goods goods);
 	
+	int insertGoods(Goods goods);
 	
+	int insertGoodsPicAddress(PicAddress picAddress);
 	
+	int insertGoodsDetailPic(DetailPic detailPic);
 	
+	int updateGoods(List<Goods> goods);	
+	
+	int updateGoods(Goods goods);
+	
+	int deleteDetailPicAddress(Integer id);
+	
+	int deletePicAddress(Integer id);
 }

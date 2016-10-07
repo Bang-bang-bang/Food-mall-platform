@@ -18,4 +18,6 @@ public interface DetailPicMapper {
     int updateByPrimaryKey(DetailPic record);
     
     List<DetailPic> selectByGoodsKey(Integer id);
+    
+    int deleteByGoodsKey(Integer id);
 }

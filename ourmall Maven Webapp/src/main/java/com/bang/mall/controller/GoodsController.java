@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bang.mall.commons.JsonResult;
+import com.bang.mall.domain.DetailPic;
 import com.bang.mall.domain.Goods;
 import com.bang.mall.domain.IndexItem;
+import com.bang.mall.domain.PicAddress;
 import com.bang.mall.service.GoodsServiceI;
 
 @Controller
@@ -80,8 +82,13 @@ public class GoodsController extends BaseController<Goods> {
 	/**
 	 * 
 	 * @param goods
+	 *            goodsName:商品名  goodsTotal:库存数量  goodsDetals：商品详情（文字）
+	 *            goodsClass：商品类别  goodsBornPlace：商品原产地  goodsPrice：商品售价
+	 *            goodsBornTime：商品有效期
 	 * @param file
-	 *            图片文件
+	 *            商品图片文件
+	 * @param file
+	 *            商品图片详情文件
 	 * @param request
 	 * @return
 	 * @throws Exception
@@ -90,14 +97,19 @@ public class GoodsController extends BaseController<Goods> {
 	private String fildUpload(
 			Goods goods,
 			@RequestParam(value = "file", required = false) MultipartFile[] file,
+			@RequestParam(value = "file1", required = false) MultipartFile[] file1,
 			HttpServletRequest request) throws Exception {
 		// 获得物理路径webapp所在路径
 		String pathRoot = request.getSession().getServletContext()
 				.getRealPath("");
 		String path = "";
 		List<String> listImagePath = new ArrayList<String>();
+		goodsServiceI.insertGoods(goods);
+		List<Goods> lGoods = goodsServiceI.showOrSortGoods(goods);
 		for (MultipartFile mf : file) {
 			if (!mf.isEmpty()) {
+				PicAddress picAddress = new PicAddress();
+				picAddress.setPicaddid(lGoods.get(0).getGoodsid());
 				// 生成uuid作为文件名称
 				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 				// 获得文件类型（可以判断如果不是图片，禁止上传）
@@ -109,11 +121,33 @@ public class GoodsController extends BaseController<Goods> {
 				mf.transferTo(new File(pathRoot + path));
 				String pString = "http://localhost:8080/ourmall/images/goods_images/"
 						+ uuid + "." + imageName;
+				picAddress.setAddress(pString);
+				goodsServiceI.insertGoodsPicAddress(picAddress);
+				listImagePath.add(pString);
+			}
+		}
+		for (MultipartFile mf : file1) {
+			if (!mf.isEmpty()) {
+				DetailPic detailPic = new DetailPic();
+				detailPic.setPicdtid(lGoods.get(0).getGoodsid());
+				// 生成uuid作为文件名称
+				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+				// 获得文件类型（可以判断如果不是图片，禁止上传）
+				String contentType = mf.getContentType();
+				// 获得文件后缀名称
+				String imageName = contentType.substring(contentType
+						.indexOf("/") + 1);
+				path = "/images/goods_images/" + uuid + "." + imageName;
+				mf.transferTo(new File(pathRoot + path));
+				String pString = "http://localhost:8080/ourmall/images/goods_images/"
+						+ uuid + "." + imageName;
+				detailPic.setAddress(pString);
+				goodsServiceI.insertGoodsDetailPic(detailPic);
 				listImagePath.add(pString);
 			}
 		}
 		System.out.println(path);
 		request.setAttribute("imagesPathList", listImagePath);
-		return "success";
+		return "goods_upload";
 	}
 }
