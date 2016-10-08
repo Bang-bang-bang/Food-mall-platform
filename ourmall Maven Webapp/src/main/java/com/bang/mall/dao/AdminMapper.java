@@ -20,4 +20,6 @@ public interface AdminMapper {
     List<Admin> selectAdmin();
     
     List<Admin> selectIsEmplyAdmin(Admin admin);
+    
+    List<Admin> selectIsExistAdmin(Admin admin);
 }

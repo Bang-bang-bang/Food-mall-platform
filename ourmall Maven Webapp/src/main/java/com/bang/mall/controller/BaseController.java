@@ -1,6 +1,5 @@
 package com.bang.mall.controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;

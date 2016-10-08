@@ -14,7 +14,6 @@ import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +30,14 @@ import com.bang.mall.service.AdminServiceI;
 import com.bang.mall.service.GoodsServiceI;
 import com.bang.mall.service.OrderServiceI;
 
+/**
+ * 
+ * @author lilingyong
+ * @deprecated 本类全为json数据返回 若改字符串返回，则需在构造方法参数中加HttpServletRequest request 方法体中加
+ *             request.setAttribute("key", Object);
+ *
+ */
+
 @Controller
 @RequestMapping("/adminController")
 public class AdminController extends BaseController<Orders> {
@@ -45,8 +52,11 @@ public class AdminController extends BaseController<Orders> {
 	 * 显示订单列表
 	 * 
 	 * @param stateInteger
-	 *            不取值 ，显示所有订单 stateInteger为1时，显示已完成订单 stateInteger为2时，显示已取消订单
-	 *            stateInteger为3时，显示待付款订单 stateInteger为4时，显示待发货订单
+	 *            不取值 ，显示所有订单 
+	 *            1、stateInteger为1时，显示已完成订单
+	 *            2、stateInteger为2时，显示已取消订单 
+	 *            3、stateInteger为3时，显示待付款订单
+	 *            4、stateInteger为4时，显示待发货订单
 	 * @return
 	 */
 	@RequestMapping(value = "/showAllOrder")

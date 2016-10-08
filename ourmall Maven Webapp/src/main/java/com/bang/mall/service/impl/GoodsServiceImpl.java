@@ -5,14 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bang.mall.commons.MallStatus;
 import com.bang.mall.dao.DetailPicMapper;
 import com.bang.mall.dao.GoodsMapper;
-import com.bang.mall.dao.OrdersMapper;
 import com.bang.mall.dao.PicAddressMapper;
 import com.bang.mall.domain.DetailPic;
 import com.bang.mall.domain.Goods;
-import com.bang.mall.domain.Orders;
 import com.bang.mall.domain.PicAddress;
 import com.bang.mall.service.GoodsServiceI;
 

@@ -150,4 +150,9 @@
       password = #{password,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectIsExistAdmin" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Admin" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_admin where username = #{username,jdbcType=VARCHAR}  </select>
+  
 </mapper>

@@ -1,6 +1,5 @@
 package com.bang.mall.service.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +44,6 @@ public class OrderService implements OrderServiceI {
 		UserGoods userGoods = new UserGoods();
 		// userGoods.setUsergoods3(order.getUserid());
 		List<Orders> mList = ordersMapper.selectByUserKey(order);
-		List<Orders> nOrders = new ArrayList<Orders>();
 		for (int i = 0; i < mList.size(); i++) {
 			if (mList.get(i).getOrderid() != null) {
 				userGoods.setOrderid(mList.get(i).getOrderid());

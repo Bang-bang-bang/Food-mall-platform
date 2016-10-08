@@ -9,7 +9,6 @@ import com.bang.mall.dao.GoodsMapper;
 import com.bang.mall.dao.PicAddressMapper;
 import com.bang.mall.dao.UserGoodsMapper;
 import com.bang.mall.domain.Goods;
-import com.bang.mall.domain.Orders;
 import com.bang.mall.domain.PicAddress;
 import com.bang.mall.domain.UserGoods;
 import com.bang.mall.service.UserGoodsServiceI;

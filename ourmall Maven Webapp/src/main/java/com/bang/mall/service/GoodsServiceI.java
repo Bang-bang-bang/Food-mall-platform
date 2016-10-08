@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.bang.mall.domain.DetailPic;
 import com.bang.mall.domain.Goods;
-import com.bang.mall.domain.Orders;
 import com.bang.mall.domain.PicAddress;
 
 public interface GoodsServiceI {

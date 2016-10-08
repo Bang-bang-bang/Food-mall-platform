@@ -148,6 +148,9 @@
   <select id="selectUsers" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Users" >
     select * from tb_users 
   </select>
+    <select id="selectIsExistUsers" resultMap="BaseResultMap" parameterType="com.bang.mall.domain.Users" >
+    select * from tb_users where username=#{username,jdbcType=VARCHAR}
+  </select>
   
   
 </mapper>

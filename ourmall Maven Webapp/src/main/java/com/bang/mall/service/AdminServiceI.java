@@ -6,7 +6,7 @@ import com.bang.mall.domain.Admin;
 
 public interface AdminServiceI {
 
-	int insertAdmin(Admin admin);
+	Admin insertAdmin(Admin admin);
 	
 	int updateAdmin(Admin admin);
 	

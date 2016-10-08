@@ -22,6 +22,14 @@ import com.bang.mall.domain.IndexItem;
 import com.bang.mall.domain.PicAddress;
 import com.bang.mall.service.GoodsServiceI;
 
+/**
+ * 
+ * @author lilingyong
+ * @deprecated 本类全为json数据返回 若改字符串返回，则需在构造方法参数中加HttpServletRequest request 方法体中加
+ *             request.setAttribute("key", Object);
+ *
+ */
+
 @Controller
 @RequestMapping("/goodsController")
 public class GoodsController extends BaseController<Goods> {
@@ -43,9 +51,15 @@ public class GoodsController extends BaseController<Goods> {
 	}
 
 	/**
-	 * showAllGoods 全部商品搜索、排序均可实现 需要参数如下： goodsName 模糊查询条件 priceInteger 按价格排序
-	 * 1：降序 2：升序 sellInteger 按购买人数排序 1:降序 2：升序 sellInteger 和 priceInteger 不能同时赋值
-	 * 无参数赋值默认最新发布靠前
+	 * showAllGoods 全部商品搜索、排序均可实现 需要参数如下：
+	 * 
+	 * @param goodsName
+	 *            模糊查询条件
+	 * @param priceInteger
+	 *            按价格排序 1：降序 2：升序
+	 * @param sellInteger
+	 *            按购买人数排序 1:降序 2：升序 sellInteger 和 priceInteger 不能同时赋值
+	 *            无参数赋值默认最新发布靠前
 	 * 
 	 * @param goods
 	 * @return
@@ -69,8 +83,14 @@ public class GoodsController extends BaseController<Goods> {
 	}
 
 	/**
-	 * 按分类显示 参数goodsClass：商品类别 priceInteger 按价格排序 1：降序 2：升序 sellInteger 按购买人数排序
-	 * 1:降序 2：升序
+	 * 按分类显示
+	 * 
+	 * @param goodsClass
+	 *            ：商品类别
+	 * @param priceInteger
+	 *            按价格排序 1：降序 2：升序
+	 * @param sellInteger
+	 *            按购买人数排序 1:降序 2：升序
 	 */
 	@RequestMapping(value = "/showAllGoodsByClass")
 	public @ResponseBody JsonResult showAllGoodsByClass(Goods goods) {
@@ -82,12 +102,23 @@ public class GoodsController extends BaseController<Goods> {
 	/**
 	 * 
 	 * @param goods
-	 *            goodsName:商品名  goodsTotal:库存数量  goodsDetals：商品详情（文字）
-	 *            goodsClass：商品类别  goodsBornPlace：商品原产地  goodsPrice：商品售价
-	 *            goodsBornTime：商品有效期
+	 * @param goodsName
+	 *            :商品名
+	 * @param goodsTotal
+	 *            :库存数量
+	 * @param goodsDetals
+	 *            ：商品详情（文字）
+	 * @param goodsClass
+	 *            ：商品类别
+	 * @param goodsBornPlace
+	 *            ：商品原产地
+	 * @param goodsPrice
+	 *            ：商品售价
+	 * @param goodsBornTime
+	 *            ：商品有效期
 	 * @param file
 	 *            商品图片文件
-	 * @param file
+	 * @param file1
 	 *            商品图片详情文件
 	 * @param request
 	 * @return

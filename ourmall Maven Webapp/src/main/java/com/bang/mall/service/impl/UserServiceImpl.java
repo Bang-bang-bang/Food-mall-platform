@@ -51,14 +51,11 @@ public class UserServiceImpl implements UserServiceI {
 	 * 
 	 */
 	public Users userRegister(Users users) {
-		int i = usersMapper.insert(users);
-		String message = "";
-		if (i < 0) {
-			message = "注册失败";
-			users.setMsg(message);
+		if (usersMapper.selectIsExistUsers(users).size() > 0) {
+			users.setMsg("用户已存在");
 		} else {
-			message = "注册成功！插入表第" + i + "列";
-			users.setMsg(message);
+			usersMapper.insert(users);
+			users.setMsg("注册成功");
 		}
 		return users;
 	}
@@ -67,7 +64,7 @@ public class UserServiceImpl implements UserServiceI {
 	 * 修改用户信息
 	 */
 	public Users updaUsers(Users users) {
-		int i = usersMapper.updateByPrimaryKeySelective(users);
+		usersMapper.updateByPrimaryKeySelective(users);
 		return users;
 	}
 
@@ -79,8 +76,7 @@ public class UserServiceImpl implements UserServiceI {
 		userGoods.setUsergoods3(userid);
 		Orders orders = new Orders();
 		orders.setUserid(userid);
-		List<UserGoods> mUserGoods = userGoodsMapper
-				.selectByUserOrOrderKey(userGoods);
+		userGoodsMapper.selectByUserOrOrderKey(userGoods);
 		List<ReceiveMsg> mReceiveMsgs = receiveMsgMapper
 				.selectByUserKey(userid);
 		List<Orders> mOrders = ordersMapper.selectByUserKey(orders);
@@ -145,7 +141,7 @@ public class UserServiceImpl implements UserServiceI {
 	 * 通过用户id新增地址
 	 */
 	public ReceiveMsg addReceiveMsg(ReceiveMsg receiveMsg) {
-		
+
 		if (receiveMsg.getMainAddress() == 1) {
 			List<ReceiveMsg> receiveMsgs = receiveMsgMapper
 					.selectByUserKey(receiveMsg.getUserid());
@@ -169,6 +165,7 @@ public class UserServiceImpl implements UserServiceI {
 		}
 		return receiveMsg;
 	}
+
 	/**
 	 * 通过用户id查询地址
 	 */

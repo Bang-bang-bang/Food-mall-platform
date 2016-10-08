@@ -22,4 +22,6 @@ public interface UsersMapper {
     List<Users> selectUsers();
     
     Users checkPassword(Users userid);
+    
+    List<Users> selectIsExistUsers(Users users);
 }
