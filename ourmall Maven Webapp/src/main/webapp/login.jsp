@@ -21,12 +21,15 @@
     <style type="text/css">
     <!--
     body {
-     background: url(img/login_background.png) top left;
+     background: url(img/login_background01.png) top left;
      background-repeat: no-repeat;
      background-size:100% 100%;
     }
     .login-box-body{
-      background-color: #FFECB3;
+      /*background-color: #FFECB3;*/
+      -webkit-box-shadow:0 0 10px;  
+      -moz-box-shadow:0 0 10px;  
+      box-shadow:0 0 10px;
     }
     -->
     </style>
