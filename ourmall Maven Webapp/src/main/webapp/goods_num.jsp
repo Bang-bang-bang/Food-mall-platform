@@ -33,6 +33,13 @@
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li>
+              <button type="submit" class="btn btn-flat btn-warning btn-lg" style="border:none;height:50px" ><i class="fa fa-sign-out"><b>注销</b></i></button>
+              </li>
+            </ul>
+          </div>
         </nav>
       </header>
      
